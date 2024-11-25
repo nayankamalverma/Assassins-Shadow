@@ -1,20 +1,20 @@
-using StatePattern.Player;
+﻿using StatePattern.Player;
 using StatePattern.StateMachine;
 
 namespace StatePattern.Enemy
 {
-    public class PatrolManController : EnemyController
+    public class HitmanController : EnemyController
     {
-        private PatrolManStateMachine stateMachine;
+        private HitmanStateMachine stateMachine;
 
-        public PatrolManController(EnemyScriptableObject enemyScriptableObject) : base(enemyScriptableObject)
+        public HitmanController(EnemyScriptableObject enemyScriptableObject) : base(enemyScriptableObject)
         {
             enemyView.SetController(this);
             CreateStateMachine();
             stateMachine.ChangeState(States.IDLE);
         }
 
-        private void CreateStateMachine() => stateMachine = new PatrolManStateMachine(this);
+        private void CreateStateMachine() => stateMachine = new HitmanStateMachine(this);
 
         public override void UpdateEnemy()
         {
@@ -22,6 +22,12 @@ namespace StatePattern.Enemy
                 return;
 
             stateMachine.Update();
+        }
+
+        public override void Shoot()
+        {
+            base.Shoot();
+            stateMachine.ChangeState(States.TELEPORTING);
         }
 
         public override void PlayerEnteredRange(PlayerController targetToSet)

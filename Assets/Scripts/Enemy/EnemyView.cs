@@ -84,11 +84,6 @@ namespace StatePattern.Enemy
             enemyColors.Remove(enemyColors.Find(item => item.Type == EnemyColorType.Default));
             enemyColors.Add(coloToSetAsDefault);
         }
-
-        public void ToggleColor(bool value)
-        {
-          
-        }
     }
 
     [System.Serializable]
